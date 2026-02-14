@@ -1,0 +1,75 @@
+name: Find Prime Interval
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'find_interval.cpp'
+  pull_request:
+    branches: [ main ]
+    paths:
+      - 'find_interval.cpp'
+
+jobs:
+  find-primes:
+    runs-on: ubuntu-latest
+    
+    strategy:
+      matrix:
+        compiler: [g++, clang++]
+        optimization: [-O2, -O3]
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+    
+    - name: Install dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y build-essential clang time
+    
+    - name: Compile C++ program
+      run: |
+        echo "Compiling with ${{ matrix.compiler }} ${{ matrix.optimization }}"
+        ${{ matrix.compiler }} -std=c++11 ${{ matrix.optimization }} -o find_interval find_interval.cpp -lm
+    
+    - name: Run program
+      id: run
+      run: |
+        echo "Starting search at $(date)"
+        timeout 3600 ./find_interval | tee output.txt  # 1小时超时
+        echo "Search completed at $(date)"
+    
+    - name: Process results
+      id: results
+      run: |
+        if grep -q "FOUND SOLUTION" output.txt; then
+          echo "✅ Found solution!" >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+          grep -A 10 "FOUND SOLUTION" output.txt >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+          
+          # 提取区间信息（可选，虽然不再用于创建 issue）
+          INTERVAL=$(grep "Interval:" output.txt | head -1)
+          echo "interval=$INTERVAL" >> $GITHUB_OUTPUT
+        else
+          echo "❌ No solution found within time limit" >> $GITHUB_STEP_SUMMARY
+          echo "Last 20 lines of output:" >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+          tail -20 output.txt >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+        fi
+        
+        # 保存统计信息
+        echo "## Run Statistics" >> $GITHUB_STEP_SUMMARY
+        echo "- Compiler: ${{ matrix.compiler }}" >> $GITHUB_STEP_SUMMARY
+        echo "- Optimization: ${{ matrix.optimization }}" >> $GITHUB_STEP_SUMMARY
+        echo "- Time: $(date)" >> $GITHUB_STEP_SUMMARY
+    
+    - name: Upload results
+      uses: actions/upload-artifact@v4
+      with:
+        name: results-${{ matrix.compiler }}-${{ matrix.optimization }}
+        path: |
+          output.txt
+          find_interval
