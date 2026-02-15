@@ -54,3 +54,7 @@
 - 分析数据：
   - 解的数量、密度、间隔分布
   - 与理论预期对比
+
+### **Smallest Solution**
+Still searching for the smallest \(N\) with exactly 12 primes in \([N, N+2003]\)
+- Now solution: N = 115477080883982430774939529327978588671268523260231326208514451723
