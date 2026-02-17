@@ -1,0 +1,1 @@
+N = 413523644431096819312710; window = 2004; primes_offsets = []; for(offset = 0, window-1, { n = N + offset; if(isprime(n, 1), primes_offsets = concat(primes_offsets, offset)); }); print("质数偏移量: ", primes_offsets); print("质数个数: ", #primes_offsets);
