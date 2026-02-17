@@ -3,7 +3,7 @@ This problem appears in a number theory textbook:
 Find the smallest positive integer \(N\) such that the interval of 2004 consecutive integers \([N, N+2003]\) contains **exactly 12 primes**.
 
 - Preliminary analysis: Expected number of primes = 12 ⇒ \(N \approx e^{167} \approx 10^{72.5}\)
-- Known: Computer verification up to **105.93 billion found no solution**
+- Known: Computer verification up to **10.53B found no solution**
 
 ---
 
@@ -68,4 +68,5 @@ Find the smallest positive integer \(N\) such that the interval of 2004 consecut
 
 ## **Smallest Solution**
 Still searching for the smallest \(N\) with exactly 12 primes in \([N, N+2003]\)
-- Current solution: 11322150000 < N <= 413523644431096490406164
+- Current solution: 11322150000 < N <= 413523644431095678106310
+- Thanks for [kaggle notebook](https://www.kaggle.com/code/mengaidev/search-min)
