@@ -55,9 +55,9 @@ Find the smallest positive integer \(N\) such that the interval of 2004 consecut
 2. Analyze the data:  
    - Number of solutions, their density, distribution of gaps, comparison with theoretical expectations  
    - See details in  
-     ![pic](solutions_analysis.png)  
-     ![pic](solutions_cumulative.png)  
-     ![pic](solutions_density.png)
+     ![pic](imgs/solutions_analysis.png)  
+     ![pic](imgs/solutions_cumulative.png)  
+     ![pic](imgs/solutions_density.png)
 3. [The proof of the solution](proof.gp)
 ```
 ? \r proof.gp
@@ -68,6 +68,6 @@ Find the smallest positive integer \(N\) such that the interval of 2004 consecut
 
 ## **Smallest Solution**
 Still searching for the smallest \(N\) with exactly 12 primes in \([N, N+2003]\)
-- Current solution: 1000003745670997 < N <= 55350776431902878
+- Current solution: 1000007310014367 < N <= 55350776431902878
 - Thanks for Kaggle Notebooks!
 - [Discussion](https://math.stackexchange.com/questions/5125120/on-the-smallest-n-with-exactly-12-primes-in-n-n2003) on Mathematics

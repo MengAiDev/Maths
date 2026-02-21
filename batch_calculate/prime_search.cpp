@@ -85,7 +85,7 @@ int main(int argc, char* argv[]) {
             std::cout << "Loaded checkpoint. Last prime: " << last_prime
                       << ", window size: " << window.size() << std::endl;
             // 将迭代器定位到 last_prime 之后的下一个素数
-            it.skipto(last_prime);
+            it.jump_to(last_prime);
             it.next_prime();   // 移动到下一个素数（因为 last_prime 已经处理过）
             checkpoint_loaded = true;
         }
@@ -93,7 +93,7 @@ int main(int argc, char* argv[]) {
 
     // 如果没有检查点，从 start 开始
     if (!checkpoint_loaded) {
-        it.skipto(start);
+        it.jump_to(start);
         uint64_t p = it.next_prime();
         while (p < start) {   // 确保 p >= start（理论不会发生，但以防万一）
             p = it.next_prime();
